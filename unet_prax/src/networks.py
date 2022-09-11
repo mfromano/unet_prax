@@ -108,14 +108,9 @@ class UNet(nn.Module):
             prev_n_channels=channel_list[1]
             )
         self.conv10 = nn.Conv2d(channel_list[1], 2, 1, 1)
-        self.activation = nn.Softmax(dim=1)
-        self._initialize_params()
 
     def _initialize_params(self):
-        for module in self.children():
-            print(str(module))
-            if "upsample" in str(module):
-                raise NotImplementedError
+        raise NotImplementedError
 
     def forward(self, x):
         x1 = self.conv1(x)
