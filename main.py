@@ -13,7 +13,9 @@ if __name__ == '__main__':
     net.to(DEVICE)
 
     loss_fun = nn.BCEWithLogitsLoss().to(DEVICE)
+    
     optim = torch.optim.SGD(net.parameters(), lr=0.01, momentum=0.9)
+    
     optim.zero_grad()
 
     train_data = MnistData(True)
@@ -33,6 +35,12 @@ if __name__ == '__main__':
                 writer.add_scalar('Loss/train', loss.item(), epoch)
                 loss.backward()
                 optim.step()
-        
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': net.state_dict(),
+            'optimizer_state_dict': optim.state_dict(),
+            'loss': loss,
+            }, '.')
+            
     train_model(20)
     writer.flush()
