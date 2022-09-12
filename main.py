@@ -15,6 +15,8 @@ if __name__ == '__main__':
     else:
         DEVICE = torch.device('cpu')
 
+    print(DEVICE)
+
     net.to(DEVICE)
 
     loss_fun = nn.BCEWithLogitsLoss().to(DEVICE)
@@ -26,9 +28,8 @@ if __name__ == '__main__':
     train_data = MnistData(True)
     test_data = MnistData(False)
 
-    train_dataloader = DataLoader(train_data, batch_size=25, drop_last=True)
+    train_dataloader = DataLoader(train_data, batch_size=10, drop_last=True)
     test_dataloader = DataLoader(test_data, batch_size=len(test_data))
-
     
     def train_model(n_epochs):
         min_loss = np.inf
